@@ -1,5 +1,17 @@
 # DOOM on OpenShift
 
+## Doom on IBM Z and LinuxONE
+
+This demonstration is a modified version of [ocpdoom](https://github.com/OpenShiftDemos/ocpdoom) customized to build and run on the s390x architecture for IBM Z and LinuxONE. This guide should work for Linux on IBM Z, IBM LinuxONE, or even z/OS with [IBM z/OS Container Extensions for OpenShift](https://www.ibm.com/support/z-content-solutions/zcx-openshift/).
+
+This project is intended to demonstrate how containers and Kubernetes open the IBM Z and LinuxONE platforms to diverse and interesting workloads.
+
+The instructions below are copied from the original project but include slight tweaks to build s390x-compatible container images.
+
+If you would like to run this demo on the `amd64` architecture, refer to the original project.
+
+## Original README below...
+
 [OpenShift Container Platform (OCP)](https://www.openshift.com) is capable of building and hosting applications. This includes old retro video games. One of the oldest and most popular retro FPS games [DOOM](https://en.wikipedia.org/wiki/Doom_(1993_video_game)) released in 1993 has been containerized and brought into Kubernetes via a culmination of projects ending up in one called [kubedoom](https://github.com/storax/kubedoom). Like DOOM, [Red Hat](https://www.redhat.com) the home of OpenShift has also been around since [1993](https://www.redhat.com/en/blog/red-hatters-30-years-innovation-collaboration-and-community). So for this exercise I thought it would be cool bring their legacy together into a contemporary [Fedora](https://getfedora.org/) based image and run it on OpenShift. We’ll call this fork [ocpdoom](https://github.com/OpenShiftDemos/ocpdoom).
 
 <br>
@@ -39,7 +51,7 @@ oc create rolebinding --role monster-control --serviceaccount ocpdoom:doomguy -n
 3. Create the ocpdoom application and build the image from source using [oc new-app](https://docs.openshift.com/container-platform/latest/applications/creating_applications/creating-applications-using-cli.html).
 
 ```bash
-oc new-app https://github.com/OpenShiftDemos/ocpdoom.git --name=ocpdoom -n ocpdoom
+oc new-app https://github.com/mmondics/ocpdoom.git --name=ocpdoom -n ocpdoom
 ```
 
 If you would like to see the build in progress:
@@ -176,7 +188,7 @@ Using `oc` we build a container that contains `noVNC` with environment variables
 
 ```bash
 # create noVNC container
-oc new-app https://github.com/codekow/container-novnc.git \
+oc new-app https://github.com/mmondics/container-novnc.git \
   --name novnc \
   -n ocpdoom \
   -e ENDPOINT='ocpdoom' \
