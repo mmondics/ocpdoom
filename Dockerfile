@@ -6,7 +6,7 @@ RUN dnf install golang -y &&  dnf clean all
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ocpdoom .
 
 FROM fedora:37 AS build-essentials
-ARG TARGETARCH=amd64
+ARG TARGETARCH=s390x
 ARG KUBECTL_VERSION=1.25.4
 RUN dnf update -y && dnf install wget ca-certificates -y
 RUN wget http://distro.ibiblio.org/pub/linux/distributions/slitaz/sources/packages/d/doom1.wad
